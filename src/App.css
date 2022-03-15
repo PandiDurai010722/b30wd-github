@@ -1,0 +1,52 @@
+#App {
+    font-family: sans-serif;
+    text-align: center;
+    background-image: url("https://images.pexels.com/photos/131687/pexels-photo-131687.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#title {
+    background-color: rgb(63, 61, 61);
+    color: glow;
+    background-image: url("https://images.pexels.com/photos/172302/pexels-photo-172302.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+    width: 85%;
+    height: auto;
+    margin: auto;
+    object-fit: cover;
+    font-weight: bolder;
+    border-radius: 45px;
+    padding: 10px 10px 10px 10px;
+    -webkit-border-radius: 45px;
+    -moz-border-radius: 45px;
+    -ms-border-radius: 45px;
+    -o-border-radius: 45px;
+}
+
+#poster {
+    padding-top: 10px;
+    width: 60%;
+    height: min-content;
+    object-fit: cover;
+}
+
+.btn {
+    font-size: 40px;
+}
+
+.add-movie {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px;
+}
+
+.container-sm {
+    width: 340px;
+    height: min-content;
+}
