@@ -266,7 +266,3 @@ function Movie({ poster, name, summary, rating, rate, year }) {
 
 //  React router dom
 // Conditional rendering
-
-// 04/02/22
-// Today's topic
-// Basic routing & Recap Session
