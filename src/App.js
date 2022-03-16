@@ -13,7 +13,12 @@ import { ColorBox } from "./ColorBox";
 import { Addcolor } from "./Addcolor";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Counter } from "./Counter";
-console.log(double(4));
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import useWindowSize from 'react-use/lib/useWindowSize'
+import Confetti from 'react-confetti'
+import { Box } from "@mui/system";
+
+// console.log(double(4));
 
 // 3.Default imports & exports
 export default function App() {
@@ -127,72 +132,100 @@ export default function App() {
   return (
     <div>
       {/* {nam.map((nam)=><Msg nam={nam}/>)} */}
+      <ul>
+        <li>
+          <Link to="/wel">WELCOME MULTI APP</Link>
+        </li>
+        <li>
+          <Link to="/addmovie">ADDMOVIE</Link>
+        </li>
+        <li>
+          <Link to="/addcolor">ADDCOLER</Link>
+        </li>
+        <li>
+          <Link to="/tic">Tic Game</Link>
+        </li>
+      </ul>
+      <Switch>
+        <Route path="/wel">
+          <Welcome />
+        </Route>
+        <Route path="/addmovie">
+          <div className="add-movie">
+            <TextField
+              label="poster"
+              variant="outlined"
+              onChange={(event) => setposter(event.target.value)}
+            />
+            <TextField
+              label="name"
+              variant="outlined"
+              onChange={(event) => setname(event.target.value)}
+            />
+            <TextField
+              label="Summary"
+              variant="outlined"
+              onChange={(event) => setSummary(event.target.value)}
+            />
+            <TextField
+              label="Rating"
+              variant="outlined"
+              onChange={(event) => setRating(event.target.value)}
+            />
+            <TextField
+              label="Rate"
+              variant="outlined"
+              onChange={(event) => setRate(event.target.value)}
+            />
+            <TextField
+              label="Year"
+              variant="outlined"
+              onChange={(event) => setYear(event.target.value)}
+            />
 
-      <div className="add-movie">
-        <TextField
-          label="poster"
-          variant="outlined"
-          onChange={(event) => setposter(event.target.value)}
-        />
-        <TextField
-          label="name"
-          variant="outlined"
-          onChange={(event) => setname(event.target.value)}
-        />
-        <TextField
-          label="Summary"
-          variant="outlined"
-          onChange={(event) => setSummary(event.target.value)}
-        />
-        <TextField
-          label="Rating"
-          variant="outlined"
-          onChange={(event) => setRating(event.target.value)}
-        />
-        <TextField
-          label="Rate"
-          variant="outlined"
-          onChange={(event) => setRate(event.target.value)}
-        />
-        <TextField
-          label="Year"
-          variant="outlined"
-          onChange={(event) => setYear(event.target.value)}
-        />
+            {/*copy the movielist and add new movie to it  */}
 
-        {/*copy the movielist and add new movie to it  */}
+            <Button
+              variant="contained"
+              onClick={() => {
+                const newMovie = {
+                  name: name,
+                  poster: poster,
+                  Summary: Summary,
+                  Rate: Rate,
+                  Rating: Rating,
+                  Year: Year,
+                };
+                setMovies([...Movies, newMovie]);
+              }}
+            >
+              AddMovie
+            </Button>
+          </div>
 
-        <Button
-          variant="contained"
-          onClick={() => {
-            const newMovie = {
-              name: name,
-              poster: poster,
-              Summary: Summary,
-              Rate: Rate,
-              Rating: Rating,
-              Year: Year,
-            };
-            setMovies([...Movies, newMovie]);
-          }}
-        >
-          AddMovie
-        </Button>
-      </div>
-
-      <div id="App">
-        {Movies.map(({ name, poster, Rating, Rate, Summary, Year }, index) => (
-          <Movie
-            key={index}
-            poster={poster}
-            name={name}
-            summary={Summary}
-            rating={Rating}
-            rate={Rate}
-            year={Year}
-          />
-        ))}
-      </div>
+          <div id="App">
+            {Movies.map(
+              ({ name, poster, Rating, Rate, Summary, Year }, index) => (
+                <Movie
+                  key={index}
+                  poster={poster}
+                  name={name}
+                  summary={Summary}
+                  rating={Rating}
+                  rate={Rate}
+                  year={Year}
+                />
+              )
+            )}
+          </div>
+        </Route>
+        <Route path="/addcolor">
+          <Addcolor />
+        </Route>
+        <Route path="/tic">
+          <TicTacToe />
+        </Route>
+      </Switch>
     </div>
   );
 }
@@ -248,13 +281,131 @@ function Movie({ poster, name, summary, rating, rate, year }) {
           </CardContent>
         </div>
       </CardContent>
-      {/* <Addcolor/> */}
+
       {/* <ColorBox/> */}
     </Card>
   );
 }
 
+//WELCOME TO MULTI APP
 
+function Welcome() {
+  return (
+    <div>
+      <h1>🙌🙌🙌🙌🙌WELCOME🙌🙌🙌🙌🙌</h1>
+    </div>
+  );
+}
+
+// loop -> map
+// parent Component ->Child Component (Data has to be passed)->props
+function TicTacToe() {
+  const [board, setBoard] = useState([
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+  ]);
+  // useState([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+  const decideWinner = (board) => {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    // if winning condition present in board then we have a winner
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+
+      // console.log(a, b, c);
+      if (board[a] != null && board[a] === board[b] && board[b] === board[c]) {
+        console.log("Winner is", board[a]);
+        return board[a];
+      }
+    }
+    return null;
+  };
+  const winner = decideWinner(board);
+  const [isXturn, setIsXTurn] = useState(true);
+  const handleClick = (index) => {
+    {
+      /*copy the board and replace with "X" in the clicked GameBox  */
+    }
+    // Update only untouched boxes & until no winner
+    if (winner === null && board[index] === null) {
+      const boardCopy = [...board];
+      //  console.log(boardCopy,index);
+      boardCopy[index] = isXturn ? "X" : "O";
+      setBoard(boardCopy);
+      setIsXTurn(!isXturn);
+    }
+
+    // console.log(index);
+  };
+  const { width, height } = useWindowSize()
+
+  return (
+    <div className="full-game">
+      {winner?<Confetti
+      width={width}
+      height={height}
+      gravity={0.01}
+
+    />:""}
+      <div className="board">
+        {board.map((val, index) => (
+          <GameBox val={val} onPlayerClick={() => handleClick(index)} />
+        ))}
+        {/* <GameBox/> */}
+      </div>
+      {winner ? <h1>Winner is :{winner}</h1> : ""}
+    </div>
+  );
+}
+
+// {val}  -> Object destructuring
+function GameBox({ val, onPlayerClick }) {
+  // const val = "X";
+  // const [val, setVal] = useState(null); //Changing val requires hook
+  const styles = {
+    color: val === "X" ? "red" : "green", //conditional styling
+  };
+  return (
+    <div
+      // onClick={() => setVal(val === "X" ? "O" : "X")}
+      onClick={() => onPlayerClick()}
+      className="game-box"
+      style={styles}
+    >
+      {val}
+    </div>
+  ); //{}->tempate syntax
+}
+
+// // {val}  -> Object destructuring
+// function GameBox({val}) {
+//   // const val = "X";
+//   // const [val, setVal] = useState();
+//   const styles = {
+//     color: val === "X" ? "red" : "green", //conditional styling
+//   };
+//   return (
+//     <div className="game-box" style={styles}>
+//       {val}
+//     </div>
+//   ); //{}->tempate syntax
+// }
 // Multi page-advantage
 // 1.performance
 // 2.Ease of access - Organized
@@ -270,3 +421,9 @@ function Movie({ poster, name, summary, rating, rate, year }) {
 // 04/02/22
 // Today's topic
 // Basic routing & Recap Session
+
+//Task 
+// 1.Draw condition
+// 2.X turn /O turn
+// 3.Whom to start the game with X or O
+// 4.Restart

@@ -50,3 +50,27 @@
     width: 340px;
     height: min-content;
 }
+
+.game-box {
+    height: 160px;
+    width: 160px;
+    border: 2px solid black;
+    font-size: 160px;
+    /* center the x */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.board {
+    display: flex;
+    flex-wrap: wrap;
+    width: 492px;
+}
+
+.full-game {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
