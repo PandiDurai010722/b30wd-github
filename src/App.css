@@ -74,3 +74,9 @@
     align-items: center;
     flex-direction: column;
 }
+
+.not-found {
+    text-align: center;
+    font-size: 54px;
+    margin: 0;
+}
