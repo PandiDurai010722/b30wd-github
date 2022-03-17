@@ -36,13 +36,7 @@ export default function App() {
 
   const [Movies, setMovies] = useState(InitalMovies);
 
-  const [poster, setposter] = useState("");
-  const [name, setname] = useState("");
-  const [Summary, setSummary] = useState("");
-  const [Rating, setRating] = useState("");
-  const [Rate, setRate] = useState("");
-  const [Year, setYear] = useState("");
-  const [trailer,settrailer] =useState("");
+ 
 
   return (
     <div>
@@ -51,9 +45,11 @@ export default function App() {
         <li>
           <Link to="/">WELCOME MULTI APP</Link>
         </li>
+        
         <li>
-          <Link to="/flims">Movies</Link>
+          <Link to="/movie">Movies</Link>
         </li>
+        <li><Link to="/movie/add">ADDMovie</Link></li>
         <li>
           <Link to="/addcolor">ADDCOLER</Link>
         </li>
@@ -65,81 +61,31 @@ export default function App() {
         <Route exact path="/">
           <Welcome />
         </Route>
+
         {/* old path ->/flims  new path ->/movies */}
-        <Route path="/movie/:id">
-          <MovieDetails Movies={Movies} />
-        </Route>
-        <Route path="/movie">
-          <div className="add-movie">
-            
-          <TextField
-              label="trailer"
-              variant="outlined"
-              onChange={(event) => settrailer(event.target.value)}
-            />
-            <TextField
-              label="poster"
-              variant="outlined"
-              onChange={(event) => setposter(event.target.value)}
-            />
-            <TextField
-              label="name"
-              variant="outlined"
-              onChange={(event) => setname(event.target.value)}
-            />
-            <TextField
-              label="Summary"
-              variant="outlined"
-              onChange={(event) => setSummary(event.target.value)}
-            />
-            <TextField
-              label="Rating"
-              variant="outlined"
-              onChange={(event) => setRating(event.target.value)}
-            />
-            <TextField
-              label="Rate"
-              variant="outlined"
-              onChange={(event) => setRate(event.target.value)}
-            />
-            <TextField
-              label="Year"
-              variant="outlined"
-              onChange={(event) => setYear(event.target.value)}
-            />
-
-            {/*copy the movielist and add new movie to it  */}
-
-            <Button
-              variant="contained"
-              onClick={() => {
-                const newMovie = {
-                  trailer:trailer,
-                  name: name,
-                  poster: poster,
-                  Summary: Summary,
-                  Rate: Rate,
-                  Rating: Rating,
-                  Year: Year,
-                  
-                };
-                setMovies([...Movies, newMovie]);
-              }}
-            >
-              AddMovie
-            </Button>
-          </div>
-          <Movielist Movies={Movies} setMovies={setMovies} />
-        </Route>
-        {/*( /:--> makes id a variable) */}
-
         <Route path="/flims">
           <Redirect to="/movie"></Redirect>
         </Route>
 
+        <Route path="/movie/add"><AddMovie Movies={Movies} setMovies={setMovies} /></Route>
+
+        <Route path="/movie/:id">
+          <MovieDetails Movies={Movies} />
+        </Route>
+
+        {/* /movies/add */}
+        <Route path="/movie">
+          
+          <Movielist Movies={Movies} setMovies={setMovies} />
+        </Route>
+        {/*( /:--> makes id a variable) */}
+
+        
+
         <Route path="/addcolor">
           <Addcolor />
         </Route>
+
         <Route path="/tic">
           <TicTacToe />
         </Route>
@@ -150,6 +96,80 @@ export default function App() {
     </div>
   );
 }
+
+
+function  AddMovie({Movies,setMovies}){
+   const [poster, setposter] = useState("");
+  const [name, setname] = useState("");
+  const [Summary, setSummary] = useState("");
+  const [Rating, setRating] = useState("");
+  const [Rate, setRate] = useState("");
+  const [Year, setYear] = useState("");
+  const [trailer,settrailer] =useState("");
+  return(
+<div className="add-movie">
+            
+            <TextField
+                label="trailer"
+                variant="outlined"
+                onChange={(event) => settrailer(event.target.value)}
+              />
+              <TextField
+                label="poster"
+                variant="outlined"
+                onChange={(event) => setposter(event.target.value)}
+              />
+              <TextField
+                label="name"
+                variant="outlined"
+                onChange={(event) => setname(event.target.value)}
+              />
+              <TextField
+                label="Summary"
+                variant="outlined"
+                onChange={(event) => setSummary(event.target.value)}
+              />
+              <TextField
+                label="Rating"
+                variant="outlined"
+                onChange={(event) => setRating(event.target.value)}
+              />
+              <TextField
+                label="Rate"
+                variant="outlined"
+                onChange={(event) => setRate(event.target.value)}
+              />
+              <TextField
+                label="Year"
+                variant="outlined"
+                onChange={(event) => setYear(event.target.value)}
+              />
+  
+              {/*copy the movielist and add new movie to it  */}
+  
+              <Button
+                variant="contained"
+                onClick={() => {
+                  const newMovie = {
+                    trailer:trailer,
+                    name: name,
+                    poster: poster,
+                    Summary: Summary,
+                    Rate: Rate,
+                    Rating: Rating,
+                    Year: Year,
+                    
+                  };
+                  setMovies([...Movies, newMovie]);
+                }}
+              >
+                AddMovie
+              </Button>
+            </div>
+  )
+}
+
+
 
 function MovieDetails({Movies}) {
   const {id} =useParams(); //extracting parameter from the URL
