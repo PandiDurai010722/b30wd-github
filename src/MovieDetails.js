@@ -1,8 +1,12 @@
 import { Counter } from "./Counter";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
+import Button from '@mui/material/Button';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { useHistory } from "react-router-dom";
 
 export function MovieDetails({ Movies }) {
   const { id } = useParams(); //extracting parameter from the URL
+  const history= useHistory();
   console.log(id);
   const movie = Movies[id];
   return (
@@ -42,6 +46,7 @@ export function MovieDetails({ Movies }) {
           </h3>
 
           <Counter />
+          <Button variant="contained" startIcon={<ArrowBackIcon/>} onClick={()=>{history.goBack()}}>Back</Button>
         </div>
       </div>
     </div>
