@@ -7,6 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import { Counter } from "./Counter";
 import InfoIcon from "@mui/icons-material/Info";
 import { useHistory } from "react-router-dom";
+// import { EditButton } from "@mui/icons-material";
 
 // Movie
 export function Movie({
@@ -17,7 +18,8 @@ export function Movie({
   rating,
   rate,
   year,
-  deleteButton,
+  DeleteButton,
+  EditButton,
   id,
 }) {
   // Conditional styling
@@ -79,7 +81,7 @@ export function Movie({
           {/* conditional rendering */}
           {show ? <h3 className="movie-summary">{summary}</h3> : ""}
           <CardContent>
-            <Counter /> {deleteButton}
+            <Counter /> {DeleteButton} {EditButton}
           </CardContent>
         </div>
       </CardContent>

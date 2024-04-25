@@ -15,6 +15,7 @@ import { Movielist } from "./Movielist";
 import { InitalMovies } from "./InitalMovies";
 import { AddMovie } from "./AddMovie";
 import { MovieDetails } from "./MovieDetails";
+import { EditMovie } from "./EditMovie";
 // 3.Default imports & exports
 export default function App() {
   // const nam=["pandi","Aruna","Arunpandi"];
@@ -66,6 +67,11 @@ export default function App() {
         </Route>
 
         <Route path="/movie/add"><AddMovie Movies={Movies} setMovies={setMovies} /></Route>
+
+        <Route path="/movie/edit/:id">
+          <EditMovie Movies={Movies} setMovies={setMovies} />
+        </Route>
+
 
         <Route path="/movie/:id">
           <MovieDetails Movies={Movies} />
